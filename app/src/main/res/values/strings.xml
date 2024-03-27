@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">YLAN</string>
+    <string name="enter_ip_address">Enter IP Address</string>
+    <string name="ip_address">IP Address</string>
+    <string name="save">Save</string>
+    <string name="or">or</string>
+    <string name="how_to_get_ip_address">How to get IP Address ?</string>
+    <string name="file_name">File Name</string>
+    <string name="ylan_file_manager">YLAN File Manager</string>
+    <string name="title_activity_player">Player</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="_0000">0000</string>
+    <string name="next">Next</string>
+    <string name="skip_10_seconds_backward">Skip 10 seconds backward</string>
+    <string name="change_path">Change Path</string>
+    <string name="enter_directoriy_path">Enter Directoriy Path</string>
+
+</resources>

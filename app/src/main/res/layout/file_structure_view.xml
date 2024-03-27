@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:id="@+id/file_open_ll"
+    android:backgroundTint="@color/white"
+    android:paddingTop="@dimen/_10ssp"
+    android:background="?android:selectableItemBackground"
+    android:focusable="true"
+    android:nextFocusUp="@id/file_view_btn_iv"
+    android:nextFocusRight="@id/download_btn"
+    android:paddingBottom="@dimen/_10ssp"
+    android:layout_marginBottom="@dimen/_1sdp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_iv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_folders"/>
+
+        <TextView
+            android:id="@+id/file_name_tv"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:layout_height="@dimen/_25sdp"
+            android:text="@string/file_name"
+            android:textSize="@dimen/_14sdp"/>
+
+        <ImageView
+            android:id="@+id/download_btn"
+            android:layout_width="0dp"
+            android:background="@drawable/icon_ripple_color"
+            android:layout_height="@dimen/_17sdp"
+            android:nextFocusLeft="@id/file_open_ll"
+            android:layout_weight="0.8"
+            app:tint="@color/primary_green" />
+
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/download_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:max="100"
+        android:progress="0"
+        android:visibility="invisible"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        />
+
+
+</LinearLayout>
