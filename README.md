@@ -1,5 +1,3 @@
-
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
 # YLAN Android App
 
 Welcome to the YLAN Android App repository!
@@ -33,7 +31,11 @@ Click to download the YLAN Android app, [YALN APK](https://github.com/prem777p/Y
 Click to download the YLAN Server, [YALN SERVER](https://github.com/prem777p/YLAN_Android/releases/download/YLAN_App/YLAN.apk) .  
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<img align="left" height="200" src="https://github.com/prem777p/YLAN_Android/assets/113753020/db0d6af1-65d7-4ffb-bf00-d37d0bdf033f" />
+<img align="left" height="200" src="https://github.com/prem777p/YLAN_Android/assets/113753020/1596a34f-3963-4445-8335-6f58ca989300" />
+<img align="left" height="200" src="https://github.com/prem777p/YLAN_Android/assets/113753020/259ff3bf-86e4-4dfd-aae0-80fccd20b2e1" />
+<img height="200" src="https://github.com/prem777p/YLAN_Android/assets/113753020/7740aab6-99c4-4da4-8f87-3bc019e882f5" />
+
 
 
 ## 🔗 Links
