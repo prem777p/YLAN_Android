@@ -7,7 +7,7 @@
         android:id="@id/exo_controls_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black" />
+        android:background="@color/transparent" />
 
     <LinearLayout
         android:id="@id/exo_basic_controls"
