@@ -2,6 +2,8 @@ package com.prem.ylan.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,9 +23,18 @@ class PathManager : AppCompatActivity() {
         enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_path_manager)
 
+        binding.changepathBtn.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(binding.changepathBtn, InputMethodManager.SHOW_IMPLICIT)
+            } else {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.changepathBtn.windowToken, 0)
+            }
+        }
 
     binding.changepathBtn.setOnClickListener{
-        var newPath = binding.newPathEdt.text.toString()
+        val newPath = binding.newPathEdt.text.toString()
         if (newPath.isNotEmpty()) {
             PathManager.getPathInstance().path = newPath
 

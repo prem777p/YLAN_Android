@@ -124,7 +124,7 @@ class Player : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
-        this.enableEdgeToEdge()
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
 

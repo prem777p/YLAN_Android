@@ -2,7 +2,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Ylan" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="android:navigationBarColor">#B3FFFFFF</item>
         <item name="colorPrimary">@color/primary_green</item>
     </style>
 
@@ -12,7 +11,9 @@
         <item name="android:actionBarStyle">@style/Widget.Theme.Ylan.ActionBar.Fullscreen</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
+
 
     <style name="ThemeOverlay.Ylan.FullscreenContainer" parent="">
     </style>
