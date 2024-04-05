@@ -3,6 +3,9 @@ package com.prem.ylan.api
 import android.Manifest
 import android.content.Context
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.webkit.CookieManager
 import android.webkit.URLUtil
 import android.widget.ProgressBar
@@ -55,14 +58,18 @@ object DownloadManager {
 
 
                 // Notify completion
-//                        if (downloadProgressBar.progress == 100) {
-//                            Toast.makeText(context, "Download completed", Toast.LENGTH_SHORT).show()
-//                        }
+                        if (downloadProgressBar.progress == 100) {
+                            Handler(Looper.getMainLooper()).post {
+                                Toast.makeText(context, "Download completed", Toast.LENGTH_SHORT).show()
+                            }
+                        }
 
-            } catch (e: IOException) {
-                e.printStackTrace()
+            } catch (_ : IOException) {
                 // Handle error
-                Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+                    downloadProgressBar.visibility = View.INVISIBLE
+                }
             }
         }.start()
     }
