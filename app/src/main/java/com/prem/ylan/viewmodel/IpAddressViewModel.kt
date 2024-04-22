@@ -59,7 +59,6 @@ class IpAddressViewModel(private var application: Application) : ViewModel() {
             else if (osCheck.lowercase().contains("Window".lowercase())){
                 PathManager.addOs("window")
                 PathManager.addPath("D:")
-                Log.d("path ipaddress viewmodel", PathManager.getPathInstance().path)
             }
             else if (osCheck.lowercase().contains("Mac".lowercase())){
                 PathManager.addOs("mac")
