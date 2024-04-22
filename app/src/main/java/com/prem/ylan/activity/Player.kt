@@ -3,6 +3,7 @@ package com.prem.ylan.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -13,6 +14,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
+import android.util.Log
 import android.view.GestureDetector
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -36,7 +38,6 @@ import androidx.media3.common.MediaItem.DrmConfiguration
 import androidx.media3.common.MimeTypes
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
-import androidx.media3.common.Tracks
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import androidx.media3.datasource.DataSource
@@ -93,6 +94,7 @@ class Player : AppCompatActivity() {
     private var volumeIcon: ImageView? = null
     private var brightnessIcon: ImageView? = null
     private var screenRotateBtn: ImageButton? = null
+    private var shareBtn :ImageButton? = null
     private var qualitySelectionBtn: ImageButton? = null
     private var backButton: ImageButton? = null
     private var fitScreenBtn: ImageButton? = null
@@ -148,8 +150,22 @@ class Player : AppCompatActivity() {
         setContentView(R.layout.activity_player)
         val intent = intent
         val path = intent.getStringExtra("path")
-        mediaFileUrlOrPath =
-            "http://" + getPathInstance().ipAddress + ":8080/stream/url?path=/" + path
+        mediaFileUrlOrPath = "http://" + getPathInstance().ipAddress + ":8080/stream/url?path=/" + path
+//        mediaFileUrlOrPath = "http://" + getPathInstance().ipAddress + ":8080/videos/video?videopath=/" + path
+
+        /**
+          * This will include in future
+          * This feature will share media to another player app
+         */
+//        shareBtn?.setOnClickListener {
+//            val share = Intent(Intent.ACTION_SEND)
+//            share.putExtra(Intent.EXTRA_TEXT, mediaFileUrlOrPath)
+//            share.type = "text/plain"
+//            startActivity(Intent.createChooser(share,"Share"))
+//        }
+//        Log.d("path", "http://" + getPathInstance().ipAddress + ":8080/videos/video?videopath=/" + path)
+
+
         if (intent.hasExtra("mediaFileName")) mediaFileName = intent.getStringExtra("mediaFileName")
         if (intent.hasExtra("selectedDrmScheme")) {
             val selectedDrmScheme = intent.getIntExtra("selectedDrmScheme", 0)
@@ -481,6 +497,7 @@ class Player : AppCompatActivity() {
                 if (playbackState == Player.STATE_READY) {
                     playerView!!.setVisibility(View.VISIBLE)
                     bufferProgressbar!!.visibility = View.GONE
+
                     if (mediaFileName != "") {
                         fileNameTV!!.text = mediaFileName
                     } else {
@@ -812,6 +829,7 @@ class Player : AppCompatActivity() {
     private fun initVars() {
         playerView = findViewById(R.id.exo_player_view)
         bufferProgressbar = findViewById(R.id.buffer_progressbar)
+        shareBtn = findViewById(R.id.share_btn)
         fileNameTV = findViewById(R.id.file_name_tv)
         qualitySelectionBtn = findViewById(R.id.quality_selection_btn)
         brightnessVolumeContainer = findViewById(R.id.brightness_volume_container)
