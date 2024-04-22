@@ -133,10 +133,11 @@ import java.net.URL
             itemView.findViewById<LinearLayout>(R.id.file_open_ll).setOnLongClickListener {
 
                 if (size <= position && data.contains(".mp4") || data.contains(".mkv") || data.contains(".MOV")) {
-                    val url = "http://" + PathManager.getPathInstance().ipAddress + ":8080/stream/url?path=/${PathManager.getPathInstance().path}${itemView.findViewById<TextView>(R.id.file_name_tv).text}"
+                    val url = "http://" + PathManager.getPathInstance().ipAddress + ":8080/stream/url?path=/${PathManager.getPathInstance().path.replace(" ", "%20")}/${(fileNameTv.text as String).replace(" ", "%20")}"
                     val share = Intent(Intent.ACTION_SEND)
                     share.putExtra(Intent.EXTRA_TEXT, url)
                     share.type = "text/plain"
+                    
                     context.startActivity(Intent.createChooser(share,"Share"))
                 }
                 return@setOnLongClickListener true
