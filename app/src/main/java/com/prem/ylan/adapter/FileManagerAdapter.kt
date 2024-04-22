@@ -66,72 +66,82 @@ import java.net.URL
     override fun getItemCount(): Int {
         return directoryFileList.size
     }
+     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+         fun bind(data: String, size : Int, position: Int) {
+             // Bind data to UI elements
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: String, size : Int, position: Int) {
-            // Bind data to UI elements
+             if (size <= position && data.contains(".mp4") || data.contains(".mkv") || data.contains(".MOV")) {
+                 itemView.findViewById<ImageView>(R.id.icon_iv).setImageResource(R.drawable.icon_video_library_mp4)
+                 itemView.findViewById<ImageView>(R.id.download_btn).setImageResource(R.drawable.icon_downloading_fill)
+                 itemView.findViewById<ImageView>(R.id.download_btn).visibility = View.VISIBLE
 
-            if (size <= position && data.contains(".mp4") || data.contains(".mkv") || data.contains(".MOV")) {
-                itemView.findViewById<ImageView>(R.id.icon_iv).setImageResource(R.drawable.icon_video_library_mp4)
-                itemView.findViewById<ImageView>(R.id.download_btn).setImageResource(R.drawable.icon_downloading_fill)
-                itemView.findViewById<ImageView>(R.id.download_btn).visibility = View.VISIBLE
+             }
+             else if (size <= position){
+                 itemView.findViewById<ImageView>(R.id.icon_iv).setImageResource(R.drawable.icon_file_text)
+                 itemView.findViewById<ImageView>(R.id.download_btn).setImageResource(R.drawable.icon_downloading_fill)
+                 itemView.findViewById<ImageView>(R.id.download_btn).visibility = View.VISIBLE
+             }
+             if (size > position){
+                 itemView.findViewById<ImageView>(R.id.icon_iv).setImageResource(R.drawable.icon_folders)
+                 itemView.findViewById<ImageView>(R.id.download_btn).visibility = View.INVISIBLE
+             }
 
-            }
-            else if (size <= position){
-                itemView.findViewById<ImageView>(R.id.icon_iv).setImageResource(R.drawable.icon_file_text)
-                itemView.findViewById<ImageView>(R.id.download_btn).setImageResource(R.drawable.icon_downloading_fill)
-                itemView.findViewById<ImageView>(R.id.download_btn).visibility = View.VISIBLE
-            }
-            if (size > position){
-                itemView.findViewById<ImageView>(R.id.icon_iv).setImageResource(R.drawable.icon_folders)
-                itemView.findViewById<ImageView>(R.id.download_btn).visibility = View.INVISIBLE
-            }
+             val fileNameTv = itemView.findViewById<TextView>(R.id.file_name_tv)
+             fileNameTv.text = data
+             itemView.findViewById<ImageView>(R.id.download_btn).setOnClickListener {
 
-            val fileNameTv = itemView.findViewById<TextView>(R.id.file_name_tv)
-            fileNameTv.text = data
-            itemView.findViewById<ImageView>(R.id.download_btn).setOnClickListener {
+                 val url = "http://${PathManager.getPathInstance().ipAddress}:8080/download/${fileNameTv.text}?folderPath=${PathManager.getPathInstance().path}"
 
-                val url = "http://${PathManager.getPathInstance().ipAddress}:8080/download/${fileNameTv.text}?folderPath=${PathManager.getPathInstance().path}"
-
-                val downloadProgressBar = itemView.findViewById<ProgressBar>(R.id.download_progressbar)
-                downloadProgressBar.visibility = View.VISIBLE
-                DownloadManager.checkPermission(context, url,downloadProgressBar)
-            }
-            itemView.findViewById<LinearLayout>(R.id.file_open_ll).setOnClickListener{
-
-                if (size > position){
-                    val intent = Intent(context, FileManager::class.java)
-                    if (PathManager.getPathInstance().os.contains("linux")){
-                        PathManager.addPath("/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
-                    }
-                    else if (PathManager.getPathInstance().os.contains("window")){
-                        PathManager.addPath("/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
-                    }
-                    else if (PathManager.getPathInstance().os.contains("mac")){
+                 val downloadProgressBar = itemView.findViewById<ProgressBar>(R.id.download_progressbar)
+                 downloadProgressBar.visibility = View.VISIBLE
+                 DownloadManager.checkPermission(context, url,downloadProgressBar)
+             }
+             itemView.findViewById<LinearLayout>(R.id.file_open_ll).setOnClickListener{
+                // if Position is directory open and add path in PathManager class
+                 if (size > position){
+                     val intent = Intent(context, FileManager::class.java)
+                     if (PathManager.getPathInstance().os.contains("linux")){
+                         PathManager.addPath("/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
+                     }
+                     else if (PathManager.getPathInstance().os.contains("window")){
+                         PathManager.addPath("/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
+                     }
+                     else if (PathManager.getPathInstance().os.contains("mac")){
 //                        intent.putExtra("path","/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
-                    }
+                     }
 
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    context.startActivity(intent)
-                }
-                if (size <= position && data.contains(".mp4") || data.contains(".mkv") || data.contains(".MOV")){
+                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                     context.startActivity(intent)
+                 }
+
+                 // if it is video file then open it  in player activity
+                 if (size <= position && data.contains(".mp4") || data.contains(".mkv") || data.contains(".MOV")){
 
                     val intent = Intent(context, Player::class.java)
-                    if (PathManager.getPathInstance().os.contains("linux")){
-                        intent.putExtra("path","${PathManager.getPathInstance().path}/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
-                        intent.putExtra("mediaFileName",itemView.findViewById<TextView>(R.id.file_name_tv).text)
-                    }
-                    else if (PathManager.getPathInstance().os.contains("window")){
-                        intent.putExtra("path","${PathManager.getPathInstance().path}/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
-                        intent.putExtra("mediaFileName",itemView.findViewById<TextView>(R.id.file_name_tv).text)
-                    }
-                    else if (PathManager.getPathInstance().os.contains("mac")){
+                    if (PathManager.getPathInstance().os.contains("mac")){
 //                        intent.putExtra("path","/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
-                    }
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    context.startActivity(intent)
+                     }
+                     else{
+                         intent.putExtra("path","${PathManager.getPathInstance().path}/${itemView.findViewById<TextView>(R.id.file_name_tv).text}")
+                         intent.putExtra("mediaFileName",itemView.findViewById<TextView>(R.id.file_name_tv).text)
+                     }
+                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                     context.startActivity(intent)
+                 }
+             }
+
+            itemView.findViewById<LinearLayout>(R.id.file_open_ll).setOnLongClickListener {
+
+                if (size <= position && data.contains(".mp4") || data.contains(".mkv") || data.contains(".MOV")) {
+                    val url = "http://" + PathManager.getPathInstance().ipAddress + ":8080/stream/url?path=/${PathManager.getPathInstance().path}${itemView.findViewById<TextView>(R.id.file_name_tv).text}"
+                    val share = Intent(Intent.ACTION_SEND)
+                    share.putExtra(Intent.EXTRA_TEXT, url)
+                    share.type = "text/plain"
+                    context.startActivity(Intent.createChooser(share,"Share"))
                 }
+                return@setOnLongClickListener true
             }
+
             // Bind other data...
         }
 
