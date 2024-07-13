@@ -137,7 +137,7 @@ import java.net.URL
                     val share = Intent(Intent.ACTION_SEND)
                     share.putExtra(Intent.EXTRA_TEXT, url)
                     share.type = "text/plain"
-                    
+
                     context.startActivity(Intent.createChooser(share,"Share"))
                 }
                 return@setOnLongClickListener true
