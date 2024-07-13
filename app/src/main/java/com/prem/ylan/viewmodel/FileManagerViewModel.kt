@@ -30,7 +30,8 @@ class FileManagerViewModel(private val repository: DirectoryFileRepository, var 
     fun uploadFile(file: File) {
         viewModelScope.launch {
             try {
-                val response = uploadRepository.uploadFile(file, path)
+                val response = uploadRepository.uploadFile(file, path)?.chunked(1024)
+                Log.d("filemanager","run "+file.length())
                 Log.d("filemanager","run "+response.toString())
                 _uploadStatus.postValue(response != null)
             } catch (e: Exception) {
