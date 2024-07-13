@@ -1,8 +1,13 @@
 package com.prem.ylan.api
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.prem.ylan.model.PathManager
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
 
 object RetrofitHelper {
     private var BASE_URL = "http://${PathManager.getPathInstance().ipAddress}:8080"
@@ -17,10 +22,14 @@ object RetrofitHelper {
         instanceCheck = true
     }
 
+    private var gson : Gson= GsonBuilder()
+        .setLenient()
+        .create()
+
     private fun getInstance(URl: String): Retrofit{
         return Retrofit.Builder()
             .baseUrl(URl)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
